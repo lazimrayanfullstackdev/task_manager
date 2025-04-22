@@ -23,7 +23,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                 shrinkWrap: true,
                 itemCount: 6,
                 itemBuilder: (context, index){
-                  return TaskCard();
+                  return TaskCard(taskStatus: TaskStatus.sNew, chipText: "New",);
             }, separatorBuilder: (context, index)=> SizedBox(height: 6,))
           ],
         ),

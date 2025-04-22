@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 
+enum TaskStatus{
+  sNew,
+  progress,
+  completed,
+  cancelled
+}
+
 class TaskCard extends StatelessWidget {
   const TaskCard({
-    super.key,
+    super.key, required this.taskStatus, required this.chipText,
   });
+
+  final TaskStatus taskStatus;
+
+  final String chipText;
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +35,11 @@ class TaskCard extends StatelessWidget {
             Text("Date will be here"),
             Row(
               children: [
-                Chip(label: Text("New",style: TextStyle(color: Colors.white),),shape: RoundedRectangleBorder(
+                Chip(label: Text(chipText,style: TextStyle(color: Colors.white),),shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40)
                 ),
                   padding: EdgeInsets.symmetric(horizontal: 8),
-                  backgroundColor: Colors.blue,
+                  backgroundColor: _getChipColor(),
                   side: BorderSide.none,),
                 const Spacer(),
                 IconButton(onPressed: (){}, icon: Icon(Icons.delete)),
@@ -39,5 +50,20 @@ class TaskCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color _getChipColor(){
+    late Color color;
+    switch(taskStatus){
+      case TaskStatus.sNew:
+        color = Colors.blue;
+      case TaskStatus.progress:
+        color = Colors.purple;
+      case TaskStatus.completed:
+        color = Colors.green;
+      case TaskStatus.cancelled:
+        color = Colors.red;
+    }
+    return color;
   }
 }
